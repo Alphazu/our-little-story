@@ -1,0 +1,220 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#fff7fb">
+  <meta name="description" content="A little love story, made for my favorite person.">
+  <title>Our Little Story — Anurag &amp; Gargi</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Noto+Sans+Devanagari:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&family=Sacramento&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <script src="script.js" defer></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to our story</a>
+  <div class="scroll-progress" aria-hidden="true"><span id="scroll-progress"></span></div>
+  <div class="loader" id="loader" role="status" aria-label="Loading our little love story">
+    <span class="loader-heart" aria-hidden="true">♥</span><span class="loader-copy">A little love is loading…</span>
+  </div>
+  <canvas id="stars-canvas" class="stars-canvas" aria-hidden="true"></canvas>
+  <span class="nazar-float" aria-hidden="true">🧿</span>
+  <div id="ambient" class="ambient" aria-hidden="true"></div>
+  <div id="cursor-hearts" class="cursor-hearts" aria-hidden="true"></div>
+
+  <header class="site-header">
+    <a class="wordmark" href="#top" aria-label="Back to the beginning">our little <span>♥</span> story <small class="wordmark-blessing" lang="hi">जय माता दी</small></a>
+    <nav aria-label="Main navigation">
+      <a href="#journey">Our journey</a>
+      <a href="#memories">Memories</a>
+      <a href="#letter">A letter</a>
+      <a href="#proposal">The question</a>
+    </nav>
+    <button class="theme-toggle icon-button" id="theme-toggle" type="button" aria-label="Switch to dark mode" title="Toggle color theme">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.2 15.6A8.4 8.4 0 0 1 8.4 3.8 8.6 8.6 0 1 0 20.2 15.6Z"/></svg>
+    </button>
+  </header>
+
+  <main id="main">
+    <section class="hero section-shell" id="top" aria-labelledby="hero-title">
+      <div class="hero-glow glow-one"></div><div class="hero-glow glow-two"></div>
+      <div class="hero-copy">
+        <p class="eyebrow"><span class="eyebrow-line"></span> Anurag &amp; Gargi · a story written in stardust <span class="eyebrow-line"></span></p>
+        <h1 id="hero-title"><span class="hero-heart-emoji" aria-hidden="true">❤️</span> Will You <em>Marry Me?</em> <span class="hero-heart-emoji" aria-hidden="true">❤️</span></h1>
+        <p class="hero-subtitle">Every moment with you has been my favorite chapter, and I'd love to spend forever writing the rest of our story together.</p>
+        <a class="button button-primary hero-cta" href="#journey">Wander through our story <span aria-hidden="true">↓</span></a>
+        <p class="hero-note">made just for you, with all my heart <span>♥</span></p>
+      </div>
+      <div class="hero-art" aria-label="A heart floating among the stars">
+        <div class="orbit orbit-one"></div><div class="orbit orbit-two"></div>
+        <span class="orbit-star star-a">✦</span><span class="orbit-star star-b">✧</span><span class="orbit-star star-c">✦</span>
+        <div class="hero-heart-wrap"><span class="hero-heart">♥</span><span class="heart-shine"></span></div>
+        <span class="floating-note note-a">you + me</span><span class="floating-note note-b">♡</span>
+      </div>
+      <div class="hero-bottom">
+        <span>scroll a little, feel a lot</span><span class="scroll-line"></span><span>01 / 08</span>
+      </div>
+      <div class="music-widget glass-card">
+        <button id="music-toggle" class="music-button" type="button" aria-label="Play romantic music" aria-pressed="false"><span class="music-button-icon" aria-hidden="true">▶</span><span class="music-control-label">Play</span></button>
+        <div class="music-meta"><strong>Chann · our little soundtrack <span class="music-bars" aria-hidden="true"><i></i><i></i><i></i><i></i></span></strong><span id="music-status">a song for this moment</span></div>
+        <label class="sr-only" for="volume">Music volume</label><input id="volume" class="volume" type="range" min="0" max="1" step=".05" value=".45">
+        <audio id="love-song" loop preload="none"><source src="assets/romantic-music.mp3" type="audio/mpeg"></audio>
+      </div>
+      <span class="hero-deco deco-left" aria-hidden="true">♡</span><span class="hero-deco deco-right" aria-hidden="true">✧</span>
+    </section>
+
+    <section class="section-shell section-pad journey-section" id="journey" aria-labelledby="journey-title">
+      <div class="section-heading reveal">
+        <p class="eyebrow">the little things became everything</p>
+        <h2 id="journey-title">Our Journey <span class="title-heart">♥</span></h2>
+        <p>Somehow, every road led me right to you.</p>
+      </div>
+      <div class="timeline" id="timeline">
+        <article class="timeline-card reveal"><span class="timeline-icon">✿</span><span class="timeline-date">April 2, 2026 · chapter one</span><h3>First Meeting</h3><p>It started with me nervously googling topics to talk about, calling you “ma’am,” and pulling my car over in Bangalore traffic just to reply to your texts. One conversation and a quick phone call later, everything changed.</p><span class="timeline-count">01</span></article>
+        <article class="timeline-card reveal"><span class="timeline-icon">☕</span><span class="timeline-date">May · the beginning</span><h3>First Date</h3><p>Our late-night video calls stretched past 2 AM, with laughs over our opposite opinions on ducks. Then you came to Bangalore in May. Sitting side by side, holding your tiny hands, I realized how effortlessly you had become my safe space.</p><span class="timeline-count">02</span></article>
+        <article class="timeline-card reveal"><span class="timeline-icon">☀</span><span class="timeline-date">one to keep</span><h3>Favorite Memory</h3><p>From sneaking your red saree photo off Mummy’s phone to watching you win over my entire family in minutes. Even simple days—tracking our water intake or sharing cold coffee—became my favorite stories.</p><span class="timeline-count">03</span></article>
+        <article class="timeline-card reveal"><span class="timeline-icon">✈</span><span class="timeline-date">out in the world</span><h3>Special Trip</h3><p>Every kilometer between Bangalore and Hyderabad only made me crave your company more. Long drives in Duggu, sneaking away for late-night coffee, and our future treks to Vaishno Devi—every journey is better with you by my side.</p><span class="timeline-count">04</span></article>
+        <article class="timeline-card reveal"><span class="timeline-icon">♥</span><span class="timeline-date">the brave part</span><h3>First “I Love You”</h3><p>It happened within days and completely caught me off guard. A formal introduction became mutual obsession, late-night confessions, and the realization that I didn’t want an arranged marriage—I’d already fallen madly in love with my best friend.</p><span class="timeline-count">05</span></article>
+        <article class="timeline-card reveal"><span class="timeline-icon">∞</span><span class="timeline-date">right now</span><h3>Today</h3><p>Still choosing you, still addicted to your voice, and still finding new reasons to make you blush. I promised to ask properly when it’s just the two of us. I’m ready to make you Mrs. Gargi Anurag Tripathi—forever.</p><span class="timeline-count">06</span></article>
+      </div>
+      <p class="edit-hint">Make these moments yours—edit the stories right in <code>index.html</code>.</p>
+    </section>
+
+    <section class="section-shell section-pad memories-section" id="memories" aria-labelledby="memories-title">
+      <div class="section-heading reveal">
+        <p class="eyebrow">little snapshots, big feelings</p>
+        <h2 id="memories-title">Memories We Made <em>Together</em></h2>
+        <p>Tap a photo to take a closer look.</p>
+      </div>
+      <div class="memory-grid" id="memory-grid" aria-label="Photo memories"></div>
+      <p class="gallery-note">A little collection of our favorite moments, tucked into this page forever.</p>
+    </section>
+
+    <section class="counter-section section-shell section-pad" aria-labelledby="counter-title">
+      <div class="counter-decoration" aria-hidden="true">♡</div>
+      <div class="counter-inner reveal">
+        <p class="eyebrow">since our first hello · april 2, 2026</p>
+        <h2 id="counter-title">Loving You For</h2>
+        <div class="counter-grid" id="love-counter" aria-live="off">
+          <div class="counter-unit"><strong data-unit="years">00</strong><span>years</span></div>
+          <span class="counter-dot">·</span><div class="counter-unit"><strong data-unit="months">00</strong><span>months</span></div>
+          <span class="counter-dot">·</span><div class="counter-unit"><strong data-unit="days">00</strong><span>days</span></div>
+          <span class="counter-dot">·</span><div class="counter-unit"><strong data-unit="hours">00</strong><span>hours</span></div>
+          <span class="counter-dot">·</span><div class="counter-unit"><strong data-unit="minutes">00</strong><span>minutes</span></div>
+          <span class="counter-dot">·</span><div class="counter-unit"><strong data-unit="seconds">00</strong><span>seconds</span></div>
+        </div>
+        <p class="counter-caption">And counting—to forever and beyond, in this life and every next one.</p>
+      </div>
+    </section>
+
+    <section class="section-shell section-pad reasons-section" aria-labelledby="reasons-title">
+      <div class="section-heading reveal">
+        <p class="eyebrow">just a few from an endless list</p>
+        <h2 id="reasons-title">Reasons I Love <em>You</em></h2>
+        <p>Thirty little reminders. A million more where these came from.</p>
+      </div>
+      <div class="reasons-grid" id="reasons-grid"></div>
+    </section>
+
+    <section class="quote-section section-shell section-pad" aria-labelledby="quotes-title">
+      <div class="quote-sparkle" aria-hidden="true">✧</div>
+      <p class="eyebrow">words for what words can't quite say</p>
+      <h2 id="quotes-title" class="sr-only">A few words about love</h2>
+      <div class="quote-stage" aria-live="polite">
+        <span class="quote-mark" aria-hidden="true">“</span>
+        <blockquote id="quote-text"></blockquote>
+        <p id="quote-author" class="quote-author"></p>
+      </div>
+      <div class="quote-controls">
+        <button class="icon-button quote-arrow" id="quote-prev" type="button" aria-label="Previous quote">←</button>
+        <div id="quote-dots" class="quote-dots" aria-label="Quote position"></div>
+        <button class="icon-button quote-arrow" id="quote-next" type="button" aria-label="Next quote">→</button>
+      </div>
+    </section>
+
+    <section class="letter-section section-shell section-pad" id="letter" aria-labelledby="letter-title">
+      <div class="letter-card reveal">
+        <span class="letter-flower flower-one" aria-hidden="true">✿</span><span class="letter-flower flower-two" aria-hidden="true">✿</span>
+        <p class="eyebrow">open when you need a little reminder</p>
+        <h2 id="letter-title">A Letter To My <em>Future Wife</em></h2>
+        <div class="letter-body">
+          <p>Gargi,</p>
+          <p>If someone had told me back when I was avoiding marriage and dodging profiles on Shaadi.com that a single picture of a girl in a red saree would completely flip my life upside down, I would have laughed at them. Yet here I am, the guy who used to tease everyone else for texting their partners, completely, hopelessly head over heels for you.</p>
+          <p>It’s funny how our story started. From me nervously googling topics to talk about and calling you “ma’am” on April 2nd, to sneaking your photos off Mummy’s phone just to see how we’d look standing next to each other, everything about us has felt like pure serendipity. Who would have thought that two people with opposite opinions on ducks—where you think they’re fluffy and cute and I still firmly believe they’re evil—could be such an exact mirror of each other?</p>
+          <p>You have no idea how effortlessly you’ve become my entire world. I’ve spent so much of my life trying to be strong on my own, fixing every problem by myself, and being the shield for my family. Then you walked in with your infectious energy, your late-night overthinking, your clumsy self bumping into trees, and that brilliant, ambitious mind, and taught me that I don’t have to do it all alone anymore. You asked me once what I wanted in a partner, and I told you I didn’t want an arranged marriage; I wanted to fall madly in love with my best friend. You gave me that without me even realizing when it happened.</p>
+          <p>I love everything about who you are, Kiddo. I love that you’re my safe space and that you let me be yours when the world gets too loud or when you just need extra snuggles and dark chocolate. I love how fiercely you care for the people around you, how effortlessly you’ve already won over Mummy, Papa, and Anmol, and how even Shivji seems to have aligned the universe to bring you to me.</p>
+          <p>You once told me that before our engagement, you wanted a proper, quiet proposal, nothing extravagant, just the two of us, me asking you officially to be mine. So here I am, keeping my promise, laying my heart completely bare in front of you.</p>
+          <p>I want to be the man who walks beside you, literally, never opposite you, through every season of this life. I want to hold your tiny hands when we’re crossing busy roads, carry your Crocs when your heels start hurting, kiss your forehead when you’re stressed, and watch you shine the day you finally add “Dr.” before your name. I want our long drives with Duggu, our quiet coffee dates, our annual walks to Vaishno Devi, and a lifetime of laughing together until we’re old and grey.</p>
+          <p>I know I’m not always the most patient man, and I’ll probably keep forgetting dates while you keep track of them on your Excel sheets, but I promise you this: I will never stop choosing you, protecting you, and loving you louder every single day. Tumhare bina ab mera koi wajood nahi lagta, aur main rehna bhi nahi chahta.</p>
+          <p>No return or replacement policies allowed, Miss Gargi Shukla, you’re stuck with me. Will you marry me, officially become Mrs. Gargi Anurag Tripathi, and let me spend the rest of my life making you the happiest woman in the world?</p>
+          <p class="letter-signoff">Forever yours,<br><span>Anurag</span> <b>♥</b></p>
+        </div>
+      </div>
+    </section>
+
+    <section class="countdown-strip section-shell">
+      <span class="countdown-star" aria-hidden="true">✦</span>
+      <p class="eyebrow">counting down to our engagement · december 4, 2026</p>
+      <div id="proposal-countdown" class="proposal-countdown" aria-live="off"></div>
+      <p id="countdown-caption" class="countdown-caption">then forever and beyond—in this life and every next one.</p>
+    </section>
+
+    <section class="proposal-section section-shell section-pad" id="proposal" aria-labelledby="proposal-title">
+      <div class="proposal-glow"></div>
+      <div class="proposal-content reveal">
+        <p class="eyebrow">one question, a whole lifetime of answers</p>
+        <h2 id="proposal-title">So, my love…</h2>
+        <p class="proposal-intro">Of all the places I could go, all the things I could do,<br class="desktop-break"> there is nowhere I'd rather be than right here—with you.</p>
+        <div class="ring-scene" aria-label="A sparkling engagement ring">
+          <span class="ring-sparkle sparkle-one">✦</span><span class="ring-sparkle sparkle-two">✧</span><span class="ring-sparkle sparkle-three">✦</span>
+          <svg class="engagement-ring" viewBox="0 0 220 205" role="img" aria-labelledby="ring-title">
+            <title id="ring-title">A rose gold engagement ring with a sparkling diamond</title>
+            <defs><linearGradient id="band" x1="0" x2="1" y1="0" y2="1"><stop stop-color="#f8d5be"/><stop offset=".48" stop-color="#c47d75"/><stop offset="1" stop-color="#f3c6aa"/></linearGradient><linearGradient id="gem" x1="0" x2="1" y1="0" y2="1"><stop stop-color="#fff"/><stop offset=".45" stop-color="#e6d9ff"/><stop offset="1" stop-color="#f8bcd1"/></linearGradient></defs>
+            <ellipse cx="110" cy="142" rx="66" ry="35" fill="none" stroke="url(#band)" stroke-width="12" transform="rotate(-13 110 142)"/>
+            <path d="M74 103 91 73h38l17 30-36 33z" fill="url(#gem)" stroke="#fff" stroke-width="3"/>
+            <path d="m91 73 19 60 19-60M74 103h72M91 73l19 30 19-30" fill="none" stroke="#fff" stroke-opacity=".85" stroke-width="2"/>
+            <circle cx="110" cy="61" r="8" fill="#edb7c8"/><circle cx="95" cy="65" r="7" fill="#e7b6ac"/><circle cx="125" cy="65" r="7" fill="#e7b6ac"/>
+          </svg>
+          <span class="ring-caption">a tiny symbol for a very big promise</span>
+        </div>
+        <h3 class="big-question">Will You Marry Me?</h3>
+        <div class="proposal-actions">
+          <button class="button button-yes" id="yes-button" type="button">💖 YES 💖</button>
+          <button class="button button-think" id="think-button" type="button" aria-label="Let me think (just kidding, this button is shy)">😅 Let Me Think</button>
+        </div>
+        <p class="proposal-footnote">no pressure, just a whole lot of love <span>♥</span></p>
+      </div>
+      <div id="yes-overlay" class="yes-overlay" hidden>
+          <canvas id="fireworks-canvas" class="fireworks-canvas" aria-hidden="true"></canvas>
+        <div class="yes-message">
+          <span class="yes-ring">💍</span><p class="eyebrow">the beginning of our forever</p>
+          <h2>She Said Yes! <span>💍❤️</span></h2>
+          <p>Best day of my life.</p>
+          <button class="button button-primary" id="celebrate-again" type="button">Celebrate again ✨</button>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer section-shell">
+    <a class="wordmark footer-mark" href="#top">our little <span>♥</span> story</a>
+    <p>Made with <span class="beating-heart" aria-label="love">♥</span> by Anurag, for Gargi</p>
+    <button class="secret-button" id="secret-button" type="button">psst… <span>Secret Memory</span> ♡</button>
+    <span class="footer-end">to us, and all the tomorrows ✨</span>
+  </footer>
+
+  <dialog id="lightbox" class="lightbox" aria-label="Memory photo">
+    <button class="modal-close" type="button" aria-label="Close photo">×</button>
+    <img id="lightbox-image" alt="">
+    <p id="lightbox-caption"></p>
+  </dialog>
+  <dialog id="secret-modal" class="secret-modal" aria-labelledby="secret-title">
+    <button class="modal-close" type="button" aria-label="Close secret memory">×</button>
+    <div class="secret-hearts" aria-hidden="true">♥　♡　♥</div>
+    <p class="eyebrow">a little time capsule of us</p><h2 id="secret-title">Our First Video Call</h2>
+    <div class="secret-photo"><img src="assets/secret-memory.jpeg" alt="Anurag and Gargi sharing their first video call on a tablet"></div>
+    <p>A little keepsake from the first video call that became part of our story. ♥</p>
+  </dialog>
+</body>
+</html>
