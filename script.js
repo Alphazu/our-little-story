@@ -309,21 +309,28 @@ function setupAmbientHearts() {
 }
 
 function setupCursorTrail() {
-  if (reducedMotion || window.matchMedia("(pointer: coarse)").matches) return;
+  if (reducedMotion) return;
   const container = document.getElementById("cursor-hearts");
   let last = 0;
-  window.addEventListener("pointermove", (event) => {
-    const now = performance.now();
-    if (now - last < 115) return;
-    last = now;
+  function popHeart(x, y) {
     const heart = document.createElement("span");
     heart.className = "trail-heart";
     heart.textContent = "♥";
-    heart.style.left = `${event.clientX}px`;
-    heart.style.top = `${event.clientY}px`;
+    heart.style.left = `${x}px`;
+    heart.style.top = `${y}px`;
     heart.style.fontSize = `${8 + Math.random() * 8}px`;
     container.append(heart);
     window.setTimeout(() => heart.remove(), 800);
+  }
+  window.addEventListener("pointermove", (event) => {
+    if (event.pointerType !== "mouse") return;
+    const now = performance.now();
+    if (now - last < 115) return;
+    last = now;
+    popHeart(event.clientX, event.clientY);
+  }, { passive: true });
+  window.addEventListener("pointerdown", (event) => {
+    if (event.pointerType === "touch" || event.pointerType === "pen") popHeart(event.clientX, event.clientY);
   }, { passive: true });
 }
 
@@ -518,55 +525,118 @@ function setupStars() {
 function setupNazarFloat() {
   const nazar = document.querySelector(".nazar-float");
   const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-  const bounds = nazar.getBoundingClientRect();
-  const width = bounds.width || 24;
-  const height = bounds.height || 24;
-  const randomPoint = () => ({
-    x: (window.innerWidth - width) * (.12 + Math.random() * .70),
-    y: (window.innerHeight - height) * (.12 + Math.random() * .70),
-    rotation: -30 + Math.random() * 60
-  });
-  const toTransform = (point) => `translate3d(${point.x}px, ${point.y}px, 0) rotate(${point.rotation}deg)`;
-  let current = randomPoint();
-  let animation = null;
-  let timer = 0;
-  nazar.style.transform = toTransform(current);
-  if (reducedMotion) return;
-
-  function moveNext() {
-    const next = randomPoint();
-    animation = nazar.animate(
-      [{ transform: toTransform(current) }, { transform: toTransform(next) }],
-      { duration: 22000 + Math.random() * 16000, easing: "ease-in-out", fill: "forwards" }
+  const width = nazar.offsetWidth || 24;
+  const height = nazar.offsetHeight || 24;
+  function getTrack() {
+    const insetX = window.innerWidth * .08;
+    const insetY = window.innerHeight * .08;
+    const left = insetX;
+    const top = insetY;
+    const right = Math.max(left, window.innerWidth - insetX - width);
+    const bottom = Math.max(top, window.innerHeight - insetY - height);
+    const radius = Math.max(6, Math.min(
+      Math.min(window.innerWidth, window.innerHeight) * .035,
+      (right - left) * .18,
+      (bottom - top) * .18
+    ));
+    const topLength = Math.max(1, right - left - 2 * radius);
+    const sideLength = Math.max(1, bottom - top - 2 * radius);
+    const amplitude = Math.min(Math.min(window.innerWidth, window.innerHeight) * .018, radius * .8);
+    const waveCount = (length) => Math.min(12, Math.max(2, Math.round(length / 125)));
+    const wave = (progress, count, direction) => (
+      direction * amplitude * Math.sin(Math.PI * progress) ** 2 * Math.sin(2 * Math.PI * count * progress)
     );
-    animation.onfinish = () => {
-      current = next;
-      nazar.style.transform = toTransform(current);
-      animation.cancel();
-      animation = null;
-      timer = window.setTimeout(moveNext, 800 + Math.random() * 2000);
+    const directions = Array.from({ length: 4 }, () => Math.random() < .5 ? -1 : 1);
+    const sections = [];
+    let perimeter = 0;
+    function addSection(length, pointAt) {
+      sections.push({ start: perimeter, end: perimeter + length, length, pointAt });
+      perimeter += length;
+    }
+    function addArc(centerX, centerY, startAngle, endAngle, length) {
+      addSection(length, (progress) => {
+        const angle = startAngle + (endAngle - startAngle) * progress;
+        return { x: centerX + radius * Math.cos(angle), y: centerY + radius * Math.sin(angle) };
+      });
+    }
+    const topWaves = waveCount(topLength);
+    const sideWaves = waveCount(sideLength);
+
+    addSection(topLength, (progress) => ({
+      x: left + radius + topLength * progress,
+      y: top + wave(progress, topWaves, directions[0])
+    }));
+    addArc(right - radius, top + radius, -Math.PI / 2, 0, Math.PI * radius / 2);
+    addArc(right - radius, top + radius, 0, Math.PI * 2, Math.PI * 2 * radius);
+    addSection(sideLength, (progress) => ({
+      x: right - wave(progress, sideWaves, directions[1]),
+      y: top + radius + sideLength * progress
+    }));
+    addArc(right - radius, bottom - radius, 0, Math.PI / 2, Math.PI * radius / 2);
+    addArc(right - radius, bottom - radius, Math.PI / 2, Math.PI * 2.5, Math.PI * 2 * radius);
+    addSection(topLength, (progress) => ({
+      x: right - radius - topLength * progress,
+      y: bottom - wave(progress, topWaves, directions[2])
+    }));
+    addArc(left + radius, bottom - radius, Math.PI / 2, Math.PI, Math.PI * radius / 2);
+    addArc(left + radius, bottom - radius, Math.PI, Math.PI * 3, Math.PI * 2 * radius);
+    addSection(sideLength, (progress) => ({
+      x: left + wave(progress, sideWaves, directions[3]),
+      y: bottom - radius - sideLength * progress
+    }));
+    addArc(left + radius, top + radius, Math.PI, Math.PI * 1.5, Math.PI * radius / 2);
+    addArc(left + radius, top + radius, Math.PI * 1.5, Math.PI * 3.5, Math.PI * 2 * radius);
+
+    return {
+      perimeter,
+      sections
     };
   }
-
-  moveNext();
+  let track = getTrack();
+  function pointOnTrack(distance) {
+    const progress = ((distance % track.perimeter) + track.perimeter) % track.perimeter;
+    const section = track.sections.find((candidate) => progress <= candidate.end) || track.sections[0];
+    return section.pointAt((progress - section.start) / section.length);
+  }
+  let distance = Math.random() * track.perimeter;
+  let duration = 32000 + Math.random() * 16000;
+  let previousTime = null;
+  let frame = 0;
+  function render(time) {
+    frame = 0;
+    if (document.hidden || reducedMotion) return;
+    if (previousTime === null) previousTime = time;
+    distance += track.perimeter * (time - previousTime) / duration;
+    previousTime = time;
+    if (distance >= track.perimeter) {
+      distance %= track.perimeter;
+      duration = 32000 + Math.random() * 16000;
+    }
+    const point = pointOnTrack(distance);
+    nazar.style.transform = `translate3d(${point.x}px, ${point.y}px, 0)`;
+    frame = window.requestAnimationFrame(render);
+  }
+  function start() {
+    if (!reducedMotion && !document.hidden && !frame) frame = window.requestAnimationFrame(render);
+  }
+  function updateTrack() {
+    track = getTrack();
+    distance = Math.random() * track.perimeter;
+    previousTime = null;
+    const point = pointOnTrack(distance);
+    nazar.style.transform = `translate3d(${point.x}px, ${point.y}px, 0)`;
+    start();
+  }
+  updateTrack();
+  if (reducedMotion) return;
   document.addEventListener("visibilitychange", () => {
     if (document.hidden) {
-      animation?.pause();
-      window.clearTimeout(timer);
-    } else if (animation?.playState === "paused") {
-      animation.play();
-    } else if (!animation) {
-      moveNext();
-    }
+      window.cancelAnimationFrame(frame);
+      frame = 0;
+      previousTime = null;
+    } else start();
   });
-  window.addEventListener("resize", () => {
-    animation?.cancel();
-    animation = null;
-    window.clearTimeout(timer);
-    current = randomPoint();
-    nazar.style.transform = toTransform(current);
-    if (!document.hidden) moveNext();
-  }, { passive: true });
+  window.addEventListener("resize", updateTrack, { passive: true });
 }
 
 function setupDialogs() {
