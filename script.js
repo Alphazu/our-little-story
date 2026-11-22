@@ -232,6 +232,7 @@ function setupMusic() {
   const controlLabel = button.querySelector(".music-control-label");
   const widget = document.querySelector(".music-widget");
   const status = document.getElementById("music-status");
+  let autoplayBlocked = false;
   audio.volume = Number(document.getElementById("volume").value);
   function setButtonState(isPlaying) {
     widget.classList.toggle("music-playing", isPlaying);
@@ -241,6 +242,7 @@ function setupMusic() {
     controlLabel.textContent = isPlaying ? "Pause" : "Play";
   }
   function showPlaybackError(error) {
+    autoplayBlocked = false;
     setButtonState(false);
     status.textContent = window.location.protocol === "file:"
       ? "Use the published site or a local server for music"
@@ -254,16 +256,25 @@ function setupMusic() {
     }
     try {
       await audio.play();
+      autoplayBlocked = false;
       setButtonState(true);
       status.textContent = "playing just for you";
     } catch (error) {
       if (error?.name === "NotAllowedError") {
-        status.textContent = automatic ? "Tap ♫ to start the music" : "Your browser blocked audio. Tap to try again";
+        autoplayBlocked = true;
+        status.textContent = automatic ? "Tap anywhere to start the music" : "Your browser blocked audio. Tap anywhere to try again";
       } else {
         showPlaybackError(error);
       }
     }
   }
+  function startAfterGesture(event) {
+    if (!autoplayBlocked || (event.target instanceof Element && event.target.closest("#music-toggle"))) return;
+    autoplayBlocked = false;
+    void startMusic();
+  }
+  document.addEventListener("pointerdown", startAfterGesture, true);
+  document.addEventListener("keydown", startAfterGesture);
   button.addEventListener("click", () => {
     if (audio.paused) {
       void startMusic();

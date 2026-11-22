@@ -178,9 +178,9 @@ h1, h2, h3 { font-family: var(--serif); font-weight: 500; letter-spacing: -.035e
 .letter-card::before { top: 20px; }.letter-card::after { bottom: 18px; }
 .letter-card > .eyebrow, .letter-card > h2 { text-align: center; }
 .letter-card > .eyebrow { margin-top: 3px; }.letter-card h2 { font-size: clamp(32px, 4.5vw, 45px); color: #5b4359; margin-bottom: 31px; }
-.letter-body { max-width: 580px; margin: auto; color: #776777; font: 16px/1.95 var(--serif); }
+.letter-body { max-width: 580px; margin: auto; color: #776777; font: 16px/1.95 var(--serif); text-align: justify; text-justify: inter-word; }
 .letter-body p { margin-bottom: 17px; }
-.letter-signoff { margin-top: 26px; }.letter-signoff span { font: 31px var(--script); color: #bd7794; }.letter-signoff b { color: #d1829e; font: 13px var(--sans); }
+.letter-signoff { margin-top: 26px; text-align: left; }.letter-signoff span { font: 31px var(--script); color: #bd7794; }.letter-signoff b { color: #d1829e; font: 13px var(--sans); }
 .letter-flower { position: absolute; color: #edcad4; font-size: 30px; }.flower-one { top: 34px; left: 33px; transform: rotate(-20deg); }.flower-two { bottom: 35px; right: 35px; transform: rotate(25deg); }
 
 .countdown-strip { padding-block: 62px 58px; text-align: center; border-top: 1px solid var(--line); }
